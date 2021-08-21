@@ -1,5 +1,5 @@
-# laravel-docker-boilerplate
-This is a boilerplate for laravel.
+# Library Loans Laravel
+The BE that powers library loans
 
 # Get Started
 ```
