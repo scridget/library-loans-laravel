@@ -4,19 +4,12 @@ namespace Tests\Unit;
 
 use App\Models\Institution;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class InstitutionTest extends TestCase
 {
-    /**
-     * Checks that the institution has the address fields
-     *
-     * @return void
-     */
-    public function testInstitutionHasAddress()
+    public function testInstitutionHasAddress(): void
     {
-        $institution = factory(Institution::class)->make();
+        $institution = Institution::factory()->make();
         
         $this->assertArrayHasKey('address1', $institution->getAttributes());
     }

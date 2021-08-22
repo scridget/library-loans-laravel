@@ -4,8 +4,6 @@ namespace Tests\Unit;
 
 use App\Traits\Locatable;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LocatableTest extends TestCase
 {
@@ -17,7 +15,7 @@ class LocatableTest extends TestCase
      */
     public function testAddressFormatsWithAllFields()
     {
-        $mock = $this->getMockForTrait('App\Traits\Locatable');
+        $mock = $this->getMockForTrait(Locatable::class);
         $mock->address1 = 'Address1';
         $mock->address2 = 'Address2';
         $mock->city = 'City';

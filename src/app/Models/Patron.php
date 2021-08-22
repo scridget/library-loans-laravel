@@ -6,7 +6,6 @@ use App\Models\Comment;
 use App\Models\Loan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * increments $id
  * string $name
