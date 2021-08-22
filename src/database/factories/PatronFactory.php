@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\Resource;
+use App\Models\Patron;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ResourceFactory extends Factory
+class PatronFactory extends Factory
 {
 
     /**
@@ -13,7 +13,7 @@ class ResourceFactory extends Factory
      *
      * @var string
      */
-    protected $model = Resource::class;
+    protected $model = Patron::class;
 
     /**
      * Define the model's default state.
@@ -23,11 +23,11 @@ class ResourceFactory extends Factory
     public function definition()
     {
         return [
-            'institution_id' => 1,
-            'title' => $this->faker->sentence,
-            'author' => $this->faker->name,
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'phone' => $this->faker->phoneNumber,
             'barcode' => $this->faker->isbn13,
-            'format' => array_rand(array_keys(Resource::FORMATS)),
+            'preferred_contact' => rand(0,1),
         ];
     }
 }

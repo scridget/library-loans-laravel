@@ -2,9 +2,25 @@
 
 namespace App\Models;
 
+use App\Models\Comment;
+use App\Models\Loan;
 use App\Traits\Locatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+/**
+ * int $id
+ * string $address1
+ * string $address2
+ * string $city
+ * string $state
+ * string $zip
+ * string $country
+ * string $phone
+ * string $barcode
+ * date $created_at
+ * date $modified_at
+ */
 
 class Institution extends Model
 {
@@ -20,31 +36,14 @@ class Institution extends Model
         'name',
     ];
 
-    public function contact()
-    {
-        return $this->belongsTo('App\Models\User', 'contact_id');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany('App\Models\User');
-    }
-
-    public function resources()
-    {
-        return $this->hasMany('App\Models\Resource');
-    }
-
     public function loans()
     {
-        return $this->hasMany('App\Models\Loan');
+        return $this->hasMany(Loan::class);
     }
 
     public function comments()
     {
-        return $this->morphMany('App\Models\Comment', 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
-
-
 
 }

@@ -15,14 +15,18 @@ class CreateLoansTable extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('assignee_id')->nullable();
-            $table->integer('resource_id');
+            $table->integer('patron_id');
             $table->integer('institution_id');
-            $table->integer('lender_id')->nullable();
+            $table->string('title');
+            $table->string('internal_barcode');
+            $table->string('external_barcode');
+            $table->tinyInteger('format');
             $table->tinyInteger('status');
-            $table->tinyInteger('type');
-            $table->string('barcode');
+            $table->tinyInteger('binder_pocket');
+            $table->date('requested_at')->nullable();
+            $table->date('ordered_at')->nullable();
+            $table->date('received_at')->nullable();
+            $table->date('returned_at')->nullable();
             $table->timestamps();
         });
     }

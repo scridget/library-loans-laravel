@@ -18,14 +18,11 @@ class LoansTableSeeder extends Seeder
      */
     public function run()
     {
-        User::all()->each(function($user) {
-            Loan::factory()
-                ->count(rand(1,50))
-                ->forResource()
-                ->forInstitution()
-                ->for($user)
-                ->hasComments(rand(0,20))
-                ->create();
-        });
+        Loan::factory()
+            ->count(100)
+            ->forInstitution()
+            ->forPatron()
+            ->hasComments(rand(0,20))
+            ->create();
     }
 }

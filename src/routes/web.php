@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-// // App
+// App
+Route::get('/home', [HomeController::class, 'index']);
 // Route::get('/{any}', [AppController::class, 'index'])->where('any', '.*')->name('app');

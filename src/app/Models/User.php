@@ -20,8 +20,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'barcode',
-        'household_id',
     ];
 
     /**
@@ -32,32 +30,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function household() {
-        return $this->belongsTo('App\Models\Household');
-    }
-
-    public function householdMembers() {
-        return $this->hasMany('App\Models\User', 'household_id', 'household_id');
-    }
-
-    public function comments() {
-        return $this->morphMany('App\Models\Comment', 'commentable');
-    }
-
-    public function institutions() {
-        return $this->belongsToMany('App\Models\Institution');
-    }
-
-    public function loans() {
-        return $this->hasMany('App\Models\Loan');
-    }
-
-    public function loanAssignments() {
-        return $this->hasMany('App\Models\Loan', 'assignee_id');
-    }
-
-    public function getAddress() {
-        return $this->household->getAddress();
-    }
 }

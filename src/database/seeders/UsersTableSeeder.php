@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Comment;
-use App\Models\Household;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -22,13 +21,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@rplloans.org',
             'password' => '$2y$10$ptfk46XWD0pFC/1NaX9DEOtEw2kExQMeuJ1QXE2/ulM7wrOWF4VAC', // 123456
         ])
-        ->for(Household::factory())
         ->create();
 
-        User::factory()
-            ->count(20)
-            ->has(Comment::factory()->count(5))
-            ->for(Household::factory())
-            ->create();
+        User::factory()->count(20)->create();
     }
 }

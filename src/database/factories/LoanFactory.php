@@ -24,8 +24,11 @@ class LoanFactory extends Factory
     {
         return [
             'status' => rand(1,6),
-            'type' => rand(1,2),
-            'barcode' => $this->faker->isbn13,
+            'format' => rand(1,2),
+            'binder_pocket' => rand(1,50),
+            'title' => $this->faker->title,
+            'internal_barcode' => $this->faker->isbn13,
+            'external_barcode' => $this->faker->isbn13,
         ];
     }
 }
