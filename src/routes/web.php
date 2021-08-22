@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // App
-Route::get('/home', [HomeController::class, 'index']);
-// Route::get('/{any}', [AppController::class, 'index'])->where('any', '.*')->name('app');
+Route::get('/patron/{patron}', [AppController::class, 'patron'])->name('patron');
+Route::get('/loan/{loan}', [AppController::class, 'loan'])->name('loan');
+Route::get('/institution/{institution}', [AppController::class, 'institution'])->name('institution');
+Route::get('/{any}', [AppController::class, 'index'])->where('any', '.*')->name('app');

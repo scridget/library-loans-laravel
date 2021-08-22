@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Institution;
 use App\Models\Loan;
 use App\Models\Patron;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LoanFactory extends Factory
@@ -30,9 +31,10 @@ class LoanFactory extends Factory
             'patron_id' => Patron::factory()->create(),
             'institution_id' => Institution::factory()->create(),
             'binder_pocket' => rand(1,50),
-            'title' => $this->faker->title,
+            'title' => $this->faker->sentence(rand(1,7)),
             'internal_barcode' => $this->faker->isbn13,
             'external_barcode' => $this->faker->isbn13,
+            'requested_at' => Carbon::now(),
         ];
     }
 }

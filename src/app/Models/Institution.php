@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * int $id
+ * string $name
  * string $address1
  * string $address2
  * string $city
