@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use HasFactory;
     use Notifiable;
 
     /**
@@ -21,7 +22,6 @@ class User extends Authenticatable
         'password',
         'barcode',
         'household_id',
-        'role_id',
     ];
 
     /**
@@ -39,10 +39,6 @@ class User extends Authenticatable
 
     public function householdMembers() {
         return $this->hasMany('App\Models\User', 'household_id', 'household_id');
-    }
-    
-    public function role() {
-        return $this->belongsTo('App\Models\Role');
     }
 
     public function comments() {

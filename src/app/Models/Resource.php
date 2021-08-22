@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Resource extends Model
 {
+    use HasFactory;
+    
     const FORMAT_BOOK = 1;
     const FORMAT_AUDIO_BOOK = 2;
     const FORMAT_DVD = 3;

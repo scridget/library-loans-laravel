@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('barcode')->unique()->nullable();
             $table->integer('household_id');
-            $table->integer('role_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
