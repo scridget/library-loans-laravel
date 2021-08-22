@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Comment;
 use App\Models\Institution;
 use App\Models\Loan;
-use App\Models\Resource;
-use App\Models\User;
+use App\Models\Patron;
 use Illuminate\Database\Seeder;
 
 class LoansTableSeeder extends Seeder
@@ -20,8 +18,6 @@ class LoansTableSeeder extends Seeder
     {
         Loan::factory()
             ->count(100)
-            ->forInstitution()
-            ->forPatron()
             ->hasComments(rand(0,20))
             ->create();
     }

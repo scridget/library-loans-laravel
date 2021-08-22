@@ -17,7 +17,7 @@ class CreatePatronsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone', 20)->nullable();
+            $table->string('phone')->nullable();
             $table->string('barcode')->unique()->nullable();
             $table->tinyInteger('preferred_contact');
             $table->timestamps();

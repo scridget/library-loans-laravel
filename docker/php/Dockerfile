@@ -1,7 +1,5 @@
 FROM php:7.4-fpm-alpine3.13
 
-MAINTAINER bmf <bmf.infomation@gmail.com>
-
 RUN apk upgrade --update \
   && apk add \
      git \

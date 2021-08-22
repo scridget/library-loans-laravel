@@ -15,4 +15,5 @@ docker exec -it php /bin/sh -c "php artisan migrate && php artisan db:seed"
 Add hosts settings to /etc/hosts
 ```
 127.0.0.1 library-loans.test
+127.0.0.1 mysql
 ```

@@ -15,7 +15,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // First, create an admin user
         User::factory([
             'name' => 'Administrator',
             'email' => 'admin@rplloans.org',
