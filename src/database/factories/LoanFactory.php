@@ -28,12 +28,13 @@ class LoanFactory extends Factory
         return [
             'status' => rand(1,6),
             'format' => rand(1,2),
-            'patron_id' => Patron::factory()->create(),
-            'institution_id' => Institution::factory()->create(),
+            'patron_id' => Patron::factory(),
+            'institution_id' => Institution::factory(),
+            'nre_id' => $this->faker->unique()->numberBetween(1000000,9999999),
             'binder_pocket' => rand(1,50),
             'title' => $this->faker->sentence(rand(1,7)),
-            'internal_barcode' => $this->faker->isbn13,
-            'external_barcode' => $this->faker->isbn13,
+            'internal_barcode' => $this->faker->unique()->isbn13,
+            'external_barcode' => $this->faker->unique()->isbn13,
             'requested_at' => Carbon::now(),
         ];
     }

@@ -17,6 +17,7 @@ class CreateLoansTable extends Migration
             $table->increments('id');
             $table->integer('patron_id');
             $table->integer('institution_id');
+            $table->integer('nre_id')->unique();
             $table->string('title');
             $table->string('internal_barcode');
             $table->string('external_barcode');
