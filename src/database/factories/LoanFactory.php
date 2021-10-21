@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Constants\Loan as LoanConstants;
 use App\Models\Institution;
 use App\Models\Loan;
 use App\Models\Patron;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LoanFactory extends Factory
@@ -35,7 +35,7 @@ class LoanFactory extends Factory
             'title' => $this->faker->sentence(rand(1,7)),
             'internal_barcode' => $this->faker->unique()->isbn13,
             'external_barcode' => $this->faker->unique()->isbn13,
-            'requested_at' => Carbon::now(),
+            'requested_at' => $this->faker->dateTimeBetween('-60 days', 'now'),
         ];
     }
 }

@@ -1,18 +1,20 @@
+@php
+use App\Constants\Loan;
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid px-3 px-md-4">
     <div class="row">
         <div class="col">
             <form class="form-inline mb-4">
                 <label class="sr-only" for="status"></label>
                 <select class="custom-select mr-2" name="status" id="status">
-                    <option value="0" {{ !request()->filled('status') ? 'selected' : '' }}>Status</option>
-                    <option value="1" {{ request()->input('status') == 1 ? 'selected' : '' }}>Requested</option>
-                    <option value="2" {{ request()->input('status') == 2 ? 'selected' : '' }}>Received</option>
-                    <option value="3" {{ request()->input('status') == 3 ? 'selected' : '' }}>Returned</option>
-                    <option value="4" {{ request()->input('status') == 4 ? 'selected' : '' }}>Waitlisted</option>
-                    <option value="active" {{ request()->input('status') == 'active' ? 'selected' : '' }}>All Active</option>
+                    <option value="active" {{ request()->input('status') == 'active' ? 'selected' : '' }}>All Active Requests</option>
+                    @foreach (Loan::STATUSES as $status)
+                        <option value="{{ $status }}" {{ request()->input('status') == $status ? 'selected' : '' }}>{{ Loan::STATUS_LABELS[$status] }}</option>
+                    @endforeach
                 </select>
 
                 <label class="sr-only" for="requested_at">Requested Date</label>
@@ -37,36 +39,31 @@
                         <table class="table table-dark table-striped table-sm mb-0">
                             <thead>
                                 <th><a href="{{
-                                    request()->url()
-                                    . '?'
+                                    request()->url(). '?'
                                     . http_build_query(array_merge(request()->except('page'),['sort' => 'title']))}}">
                                         Title
                                     </a>
                                 </th>
                                 <th><a href="{{
-                                    request()->url()
-                                    . '?'
-                                    . http_build_query(array_merge(request()->except('page'),['sort' => 'patrons.id']))}}">
+                                    request()->url(). '?'
+                                    . http_build_query(array_merge(request()->except('page'),['sort' => 'patrons.name']))}}">
                                         Patron
                                     </a>
                                 </th>
                                 <th><a href="{{
-                                    request()->url()
-                                    . '?'
+                                    request()->url(). '?'
                                     . http_build_query(array_merge(request()->except('page'),['sort' => 'binder_pocket']))}}">
                                         Pocket
                                     </a>
                                 </th>
                                 <th><a href="{{
-                                    request()->url()
-                                    . '?'
+                                    request()->url(). '?'
                                     . http_build_query(array_merge(request()->except('page'),['sort' => 'requested_at']))}}">
                                         Date Requested
                                     </a>
                                 </th>
                                 <th><a href="{{
-                                    request()->url()
-                                    . '?'
+                                    request()->url(). '?'
                                     . http_build_query(array_merge(request()->except('page'),['sort' => 'status']))}}">
                                         Status
                                     </a>
@@ -77,13 +74,13 @@
                                     <tr>
                                         <td><a href="{{ route('loan', array_merge(request()->query(), ['loan' => $loan])) }}">
                                             {{ $loan->title }}
-                                        </a></td>
+                                        </a> <a href="{{ route('loans.edit', ['loan' => $loan]) }}">[Edit]</a></td>
                                         <td><a href="{{ route('patron', array_merge(request()->query(), ['patron' => $loan->patron])) }}">
                                             {{ $loan->patron->name }}
                                         </a></td>
                                         <td>{{ $loan->binder_pocket }}</td>
-                                        <td>{{ $loan->requested_at }}</td>
-                                        <td>{{ $loan->status }}</td>
+                                        <td>{{ $loan->requested_at->format('F j, y') }}</td>
+                                        <td>{{ Loan::STATUS_LABELS[$loan->status] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -111,23 +108,27 @@
                         </p>
                         Loans
                         <table class="table table-dark table-striped table-sm mb-0">
-                        <thead>
-                            <th><a href="{{ request()->url() . '?sort=title'}}">Title</a></th>
-                            <th><a href="{{ request()->url() . '?sort=requested_at'}}">Requested</a></th>
-                            <th><a href="{{ request()->url() . '?sort=status'}}">Status</a></th>
-                        </thead>
-                        <tbody>
-                            @foreach ($patron->loans as $loan)
-                                <tr>
-                                    <td><a href="{{ route('loan', array_merge(request()->query(), ['loan' => $loan])) }}">
-                                        {{ $loan->title }}
-                                    </a></td>
-                                    <td>{{ $loan->requested_at }}</td>
-                                    <td>{{ $loan->status }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            <thead>
+                                <th><a href="{{ request()->url() . '?sort=title'}}">Title</a></th>
+                                <th><a href="{{ request()->url() . '?sort=requested_at'}}">Requested</a></th>
+                                <th><a href="{{ request()->url() . '?sort=status'}}">Status</a></th>
+                            </thead>
+                            <tbody>
+                                @foreach ($patron->loans as $loan)
+                                    <tr>
+                                        <td><a href="{{ route('loan', array_merge(request()->query(), ['loan' => $loan])) }}">
+                                            {{ $loan->title }}
+                                        </a></td>
+                                        <td>{{ $loan->requested_at }}</td>
+                                        <td>{{ $loan->status }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        @if (count($patron->comments))
+                            @include('components.comments', ['comments' => $patron->comments])
+                        @endif
                     </div>
                 </div>
             </div>            
@@ -148,23 +149,27 @@
                         </p>
                         Loans
                         <table class="table table-dark table-striped table-sm mb-0">
-                        <thead>
-                            <th><a href="{{ request()->url() . '?sort=title'}}">Title</a></th>
-                            <th><a href="{{ request()->url() . '?sort=requested_at'}}">Requested</a></th>
-                            <th><a href="{{ request()->url() . '?sort=status'}}">Status</a></th>
-                        </thead>
-                        <tbody>
-                            @foreach ($institution->loans as $loan)
-                                <tr>
-                                    <td><a href="{{ route('loan', array_merge(request()->query(), ['loan' => $loan])) }}">
-                                        {{ $loan->title }}
-                                    </a></td>
-                                    <td>{{ $loan->requested_at }}</td>
-                                    <td>{{ $loan->status }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            <thead>
+                                <th><a href="{{ request()->url() . '?sort=title'}}">Title</a></th>
+                                <th><a href="{{ request()->url() . '?sort=requested_at'}}">Requested</a></th>
+                                <th><a href="{{ request()->url() . '?sort=status'}}">Status</a></th>
+                            </thead>
+                            <tbody>
+                                @foreach ($institution->loans as $loan)
+                                    <tr>
+                                        <td><a href="{{ route('loan', array_merge(request()->query(), ['loan' => $loan])) }}">
+                                            {{ $loan->title }}
+                                        </a></td>
+                                        <td>{{ $loan->requested_at }}</td>
+                                        <td>{{ $loan->status }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        @if (count($institution->comments))
+                            @include('components.comments', ['comments' => $institution->comments])
+                        @endif
                     </div>
                 </div>
             </div>            
@@ -177,12 +182,13 @@
                     <div class="card-body">
                         <h4 class="card-title">
                             {{ $loanDetail->title }}
+                            <small><a href="{{ route('loans.edit', ['loan' => $loan]) }}">[Edit]</a></small>
                         </h4>
-                        <h5 class="card-subtitle">
+                        <h6 class="card-subtitle">
                             NRE {{ $loanDetail->nre_id }}<br/>
                             RPL {{ $loanDetail->internal_barcode }}<br/>
                             OI {{ $loanDetail->external_barcode}}
-                        </h5>
+                        </h6>
 
                         <div class="card mt-2">
                             <div class="card-body text-dark">
@@ -203,6 +209,10 @@
                                 <a href="{{ route('institution', array_merge(request()->query(), ['institution' => $loanDetail->institution])) }}">Details ></a>
                             </div>
                         </div>
+
+                        @if (count($loanDetail->comments))
+                            @include('components.comments', ['comments' => $loanDetail->comments])
+                        @endif
                     </div>
                 </div>
             </div>            
