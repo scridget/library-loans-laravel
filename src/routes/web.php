@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\PatronController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

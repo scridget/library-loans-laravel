@@ -32,7 +32,7 @@ use App\Constants\Loan;
     <div class="row">
         <div class="col">
             <div class="card bg-dark text-white">
-                <div class="card-header">Loans</div>
+                <div data-test-id="dashboard.title" class="card-header">Loans</div>
 
                 <div class="card-body">
                     @if (count($loans))

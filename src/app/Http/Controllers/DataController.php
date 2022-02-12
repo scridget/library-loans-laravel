@@ -32,7 +32,7 @@ class DataController extends Controller
             'institutions' => Institution::withCount(['resources', 'users', 'loans', 'comments'])->get(),
             'loans' => Loan::withCount('comments')->get(),
             'resources' => Resource::withCount(['loans', 'comments'])->get(),
-            'users' => User::withCount(['householdMembers', 'institutions', 'loans', 'loanAssignments', 'comments'])->get(),
+            'users' => User::withCount(['institutions', 'loans', 'loanAssignments', 'comments'])->get(),
         ]);
     }
 }
