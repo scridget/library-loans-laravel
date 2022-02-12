@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * int $id
  * int $patron_id
  * int $institution_id
+ * int $nre_id
  * string $title
  * string $internal_barcode
  * string $external_barcode
@@ -30,6 +31,13 @@ use Illuminate\Database\Eloquent\Model;
 class Loan extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'requested_at' => 'datetime',
+        'ordered_at' => 'datetime',
+        'received_at' => 'datetime',
+        'returned_at' => 'datetime',
+    ];
     
     public function patron()
     {

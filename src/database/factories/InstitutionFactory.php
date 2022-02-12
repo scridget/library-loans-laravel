@@ -24,6 +24,7 @@ class InstitutionFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
+            'email' => $this->faker->unique()->email,
             'address1' => $this->faker->streetAddress,
             'address2' => $this->faker->secondaryAddress,
             'city' => $this->faker->city,

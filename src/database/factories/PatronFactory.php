@@ -24,9 +24,9 @@ class PatronFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->email,
+            'email' => $this->faker->unique()->email,
             'phone' => $this->faker->phoneNumber,
-            'barcode' => $this->faker->isbn13,
+            'barcode' => $this->faker->unique()->isbn13,
             'preferred_contact' => rand(0,1),
         ];
     }

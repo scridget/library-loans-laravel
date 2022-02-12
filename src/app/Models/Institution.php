@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * int $id
+ * string $name
  * string $address1
  * string $address2
  * string $city
@@ -26,15 +27,6 @@ class Institution extends Model
 {
     use Locatable;
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-    ];
 
     public function loans()
     {
